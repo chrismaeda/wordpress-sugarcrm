@@ -328,11 +328,11 @@ class Sync_SugarCRM {
         
       case 'Accounts':
         $user_arr = array(
-		  array('name' => 'id',         'value' => $id ),
-          array('name' => 'name',               'value' => $user_info->user_login ), 
-          array('name' => 'email1',             'value' => $user_info->user_email ), 
+		  array('name' => 'id',  'value' => $id ),
+          array('name' => 'name',  'value' => $user_info->user_login ), 
+          array('name' => 'email1',   'value' => $user_info->user_email ), 
           array('name' => 'assigned_user_id',   'value' => $this->plugin->user_id ), 
-          array('name' => 'description',        'value' => $user_info->description ), 
+          array('name' => 'description', 'value' => $user_info->description ), 
         );
         $this->messages[] = "{$user_info->user_login} | {$user_info->user_email} | {$sugarcrm_module} Created";
         break;
@@ -431,7 +431,7 @@ class Sync_SugarCRM {
           array('name' => 'email1',             'value' => $user_info->user_email ), 
           array('name' => 'assigned_user_id',   'value' => $user_info->ID ), 
           array('name' => 'description',        'value' => $user_info->description ), 
-		  array('name' => 'converted',   'value' => 1 ), 
+		  //array('name' => 'converted',   'value' => 1 ), 
         );
         $name = (empty($user_info->first_name)) ? $last_name : "{$user_info->first_name} {$last_name}";
         $this->messages[] = "{$name} | {$user_info->user_email} | {$sugarcrm_module} Created";

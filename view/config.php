@@ -4,8 +4,8 @@
 
 <script>
 	$(document).ready(function(){
-    $("#frmcrm").validate();
-  });
+		$("#frmcrm").validate();
+	});
 </script>
 <style>
 	.error{
@@ -42,10 +42,39 @@
 <input type="radio" name="crm_auto_create_module" id="crm_auto_create_module_leads" value="Leads" <?php if ($devOptions['crm_auto_create_module'] == 'Leads') echo 'checked="checked"'; ?> />&nbsp;<label for="crm_auto_create_module_leads"><?php _e('Leads', 'Sync_SugarCRM_Users') ?></label>
 </td>
 </tr>
-
+<tr>
+	<th scope="row"><label for="crm_user_hash">Select User roles</label></th>
+	<td>
+		<?php 
+		$roles = get_editable_roles();
+		//foreach($roles as $role=>$permisions){
+		//if(is_array($devOptions['crm_auto_create_user1'])){
+		//if(in_array($role,$devOptions['crm_auto_create_user1'])){
+		if($devOptions['crm_auto_create_user1']){
+			$checked = "checked='checked'";
+		}else{
+			$checked="";
+		}
+		?>
+			
+			<input type="checkbox" <?php echo $checked ?> name="crm_auto_create_user1" id="crm_auto_create_user1" value="premise_member" /> <label for="">Premise Member</label>
+		<?php // }	?>
+		
+		
+		<?php
+		//echo $devOptions['crm_auto_create_user1'];
+		if (!$devOptions['crm_auto_create_user1']) 
+		echo "<label class='error' style=''>Select role to insert into sugar.</label>
+		"; 
+		?>
+		
+	</td>
+</tr>
 </tbody>
 </table>
 <p class="submit">
 <input type="submit" name="update_sync_sugarcrm_users_parameters" class="button-primary" value="<?php _e('Save Changes', 'Sync_SugarCRM_Users') ?>" /></p>
 </form>
  </div>
+ 
+

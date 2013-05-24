@@ -70,3 +70,13 @@ class Sync_WordPress {
 }
 
 }
+
+// function to get all roles of wordpress
+/*function get_editable_roles() {
+    global $wp_roles;
+
+    $all_roles = $wp_roles->roles;
+    $editable_roles = apply_filters('editable_roles', $all_roles);
+
+    return $editable_roles;
+}*/

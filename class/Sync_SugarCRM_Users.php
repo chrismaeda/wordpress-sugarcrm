@@ -10,6 +10,7 @@ class Sync_SugarCRM_Users {
       'crm_user_hash' => '', 
       'crm_url'       => '', 
       'crm_auto_create_user'  => 0, 
+      'crm_auto_create_user1'  => 0, 
       'crm_auto_create_module'  => 'Users', 
     );
   var $sync_sugarcrm_users_parameters;
@@ -40,6 +41,7 @@ class Sync_SugarCRM_Users {
       'crm_user_hash' => '', 
       'crm_url'       => '', 
       'crm_auto_create_user' => 0, 
+      'crm_auto_create_user1' => 0, 
       'crm_auto_create_module'  => 'Users', 
     );
     $devOptions = get_option($this->config_parameters_name);
@@ -104,6 +106,13 @@ class Sync_SugarCRM_Users {
       }	else {
         $devOptions['crm_auto_create_user'] = 0;
       }
+	  
+	  if (isset($_POST['crm_auto_create_user1'])) {
+        $devOptions['crm_auto_create_user1'] = apply_filters('crm_auto_create_user1', $_POST['crm_auto_create_user1']);
+      }	else {
+        $devOptions['crm_auto_create_user1'] = 0;
+      }
+	  
       if (isset($_POST['crm_auto_create_module']) && !empty($_POST['crm_auto_create_module'])) {
         $devOptions['crm_auto_create_module'] = apply_filters('crm_auto_create_module', $_POST['crm_auto_create_module']);
       }	
@@ -332,10 +341,35 @@ class Sync_SugarCRM_Users {
     if ($devOptions['crm_auto_create_user'] != 1) {
       return $messages;
     }
-    
+   
     $user_info = get_userdata($user_id);
     
     $user_meta = get_user_meta($user_info->ID);
+	
+	$role = $user_info->roles ['0'];
+	// check is role is allowed to insert by admin
+	/* if(is_array($devOptions['crm_auto_create_user1'])){
+		if(!in_array($role,$devOptions['crm_auto_create_user1'])){
+			return ;
+		}
+	}else{
+		return ;
+	} */
+	if($role != 'premise_member' ){
+		return false;
+		//echo "false1";
+	}
+	$devrol = (string)$devOptions['crm_auto_create_user1'];
+	if($devrol !='premise_member'){
+		return false;
+		//echo "false2";
+	}
+	
+	/*echo "<pre>";
+	print_r($role);
+	echo "<pre>";
+	print_r($devOptions['crm_auto_create_user1']);
+	die(); */ 
     if (isset($user_meta['first_name'], $user_meta['first_name'][0]))
       $user_info->first_name = $user_meta['first_name'][0];
     if (isset($user_meta['last_name'], $user_meta['last_name'][0]))
